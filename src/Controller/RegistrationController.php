@@ -8,7 +8,6 @@ use App\Repository\UsersRepository;
 use App\Security\UsersAuthenticator;
 use App\Service\JWTService;
 use App\Service\SendMailService;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,7 +56,7 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/verif/{token}', name: 'verify_user')]
-    public function verifyUser($token, JWTService $jwt, UsersRepository $usersrepository, EntityManager $em): Response
+    public function verifyUser($token, JWTService $jwt, UsersRepository $usersrepository, EntityManagerInterface $em): Response
     {
         if($jwt->isValid($token) && !$jwt->isExpired($token) && $jwt->checkSignature($token, $this->getParameter('app.jwtsecret')))
         {

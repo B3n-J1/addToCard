@@ -16,7 +16,7 @@
         {% block javascripts %}{% endblock %}
         <script src="{{asset('assets/js/scripts.js')}}" defer></script>
     </head>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
        {{ include('_partials/_nav.html.twig') }}
 
         {% if app.user and app.user.isVerified == false %}
