@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Page non trouvé{% endblock %}
+
+{% block body %}
+  <main class="container-fluid">
+    <section class="row">
+      <div class="d-flex flex-row align-items-center justify-content-center mt-3">
+          <img src="{{asset('assets/images/error404.svg')}}" class="w-50 p-2" alt="...">
+        <div class="p-2 ">
+          <h5 >Page non trouvé</h5>
+          <p >La page que vous recherché n'a pas été trouvée</p>
+        </div>
+      </div>
+    </section>
+  </main>
+{% endblock %}
