@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administration Utilisateurs{% endblock %}
+{% block title %}Administration Categories{% endblock %}
 
 {% block body %}
   <main class="container mx-3">
     <section class="row justify-content-center">
       <div class="col-12 text-center">
-       <h1>Gestion des Utilisateurs</h1>
+       <h1>Gestion des categories</h1>
       </div>
       {# {% for message in app.flashes("success") %} #}
         {# 
@@ -17,26 +17,20 @@
       <a href="#" class="btn btn-success">Ajouter</a>
       <table class="table">
         <tr class="table-primary">
-          <td>#</td>
           <td>Nom</td>
-          <td>Prénom</td>
-          <td>@</td>
-          <td>Adresse</td>
-          <td>CP</td>
-          <td>Ville</td>
+          <td>Categorie Parent</td>
+          <td>Url</td>
+          <td>Position</td>
         </tr>
-        {% for user in users %}
+        {% for category in categories %}
           <tr>
             {# <td style="width:10%">
               <img src="{{asset('images/aliments/legumes/'~ aliment.image)}}" alt="">
             </td> #}
-            <td><strong>{{user.id}}</strong></td>
-            <td><strong>{{user.lastname}}</strong></td>
-            <td><strong>{{user.firstname}}</strong></td>
-            <td><strong>{{user.email}}</strong></td>
-            <td>{{ user.address}}</td>
-            <td>{{ user.zipcode}}</td>
-            <td>{{ user.city}}</td>
+            <td><strong>{{category.name}}</strong></td>
+            <td><strong>{{category.parent}}</strong></td>
+            <td>{{ category.slug}}</td>
+            <td>{{ category.categoryOrder}}</td>
             <td>
               <a href="#">Modifier</a>
               {# <form style="display:inline-block;" action="{{ path('admin_aliments_suppression', {'id': aliment.id })}}" method="POST">
