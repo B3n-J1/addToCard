@@ -16,4 +16,6 @@ class MainController extends AbstractController
             'categories' => $categoriesRepository->findBy([], ['categoryOrder' => 'asc'])
         ]);
     }
+
+    
 }
