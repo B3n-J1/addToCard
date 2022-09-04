@@ -3,8 +3,8 @@
 {% block title %}Administration Utilisateurs{% endblock %}
 
 {% block body %}
-  <main class="container mx-3">
-    <section class="row justify-content-center">
+  <main class="container">
+    <section class="mx-2 row justify-content-center">
       <div class="col-12 text-center">
        <h1>Gestion des Utilisateurs</h1>
       </div>
@@ -14,8 +14,10 @@
           {{message}}
         </div>  
       {% endfor %} #}
-      <a href="#" class="btn btn-success">Ajouter</a>
-      <table class="table">
+      <div class="row justify-content-end">
+        <a href="{{ path('admin_users_create')}}" class="my-3 col-2 btn btn-success">Ajouter</a>
+      </div>
+      <table class="table col-12 justify-center">
         <tr class="table-primary">
           <td>#</td>
           <td>Nom</td>
@@ -24,8 +26,10 @@
           <td>Adresse</td>
           <td>CP</td>
           <td>Ville</td>
+          <td></td>
         </tr>
         {% for user in users %}
+          {% if user.roles[0] != 'ROLE_ADMIN' %}
           <tr>
             {# <td style="width:10%">
               <img src="{{asset('images/aliments/legumes/'~ aliment.image)}}" alt="">
@@ -37,17 +41,50 @@
             <td>{{ user.address}}</td>
             <td>{{ user.zipcode}}</td>
             <td>{{ user.city}}</td>
-            <td>
-              <a href="#">Modifier</a>
-              {# <form style="display:inline-block;" action="{{ path('admin_aliments_suppression', {'id': aliment.id })}}" method="POST">
-                  <input type="hidden" name="_method" value="delete">
-                  <input type="hidden" name="_token" value="{{csrf_token('SUP'~ aliment.id)}}">
-                  <input type="submit" class="btn btn-danger" value="Supprimer" onsubmit="return confirm(confirmez la suppression ?)">
-              </form> #}
+            <td class="text-end">
+              <a class="btn btn-warning btn-sm" href="{{ path('admin_users_edit' ,{'id': user.id} )}}">Modifier</a>
+              <button id="deleteModalButton" type="button" data-nom="{{"#{user.lastname} #{user.firstname}"}}" data-bs-id="{{ user.id}}" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                Supprimer
+              </button>
             </td>
           </tr>
+          {% endif %}
         {% endfor %}
       </table>
+          <!-- Modal -->
+          <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="deleteModalLabel">Suppression Utilisateur</h5>
+                  <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                  <a href="" class="btn btn-primary">Supprimer</a>
+                </div>
+              </div>
+            </div>
+          </div>
     </section>
   </main>
+  
+{% endblock %}
+
+
+{% block javascripts %}
+	<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        let supprimer = document.querySelectorAll("#deleteModalButton")
+        for(let bouton of supprimer){
+        
+				bouton.addEventListener("click", function () {
+					document.querySelector(".modal-footer a").href = `/admin/users/delete/` + this.dataset.bsId.toString()
+					document.querySelector(".modal-body").innerText = `Êtes-vous sûr(e) de vouloir supprimer `+ this.dataset.nom + ' ?'
+				})
+			}
+
+    });
+	</script>
 {% endblock %}

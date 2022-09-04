@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Edition Utilisateur
+{% endblock %}
+
+
+
+{% block body %}
+
+	<div class="container">
+    <div class="mx-2 row justify-content-center">
+        <div class="col-12">
+          {% if modification %}
+            <h2 class=page-header>Modification Utilisateur</h2>
+          {% else %}
+            <h2 class=page-header>Nouvel Utilisateur</h2>
+          {% endif %}
+              <div class="form-control mt-3">
+              {{ form_start(form)}}
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder' : 'Nom', 'aria-label' : 'Nom'}}) }}
+                  </div>
+                  <div class="col">
+                    {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder' : 'Prénom', 'aria-label' : 'Prénom'}}) }}
+                  </div>
+                </div>
+                {% if modification %}                    
+                    {{ form_widget(form.password, {'attr': {'class': 'form-control visually-hidden-focusable', 'placeholder' : 'Mot de passe', 'aria-label' : 'Mot de passe'}}) }}
+                {% else %}  
+                  <div class="m-3 row g-3">
+                    <div class="col">
+                      {{ form_widget(form.password, {'type': 'password' ,'attr': {'class': 'form-control', 'placeholder' : 'Mot de passe', 'aria-label' : 'Mot de passe'}}) }}
+                    </div>
+                  </div>
+                {% endif %}
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder' : 'Email', 'aria-label' : 'Email'}}) }}
+                  </div>
+                </div>
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder' : 'Adresse', 'aria-label' : 'Adresse'}}) }}
+                  </div>
+                </div>
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.zipcode, {'attr': {'class': 'form-control', 'placeholder' : 'Code Postale', 'aria-label' : 'Code Postale'}}) }}
+                  </div>
+                  <div class="col">
+                    {{ form_widget(form.city, {'attr': {'class': 'form-control', 'placeholder' : 'Ville', 'aria-label' : 'Ville'}}) }}
+                  </div>
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+              {{ form_end(form) }}
+              </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
