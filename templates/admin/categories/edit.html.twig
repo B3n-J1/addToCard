@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Edition Categorie
+{% endblock %}
+
+
+
+{% block body %}
+
+	<div class="container">
+    <div class="mx-2 row justify-content-center">
+        <div class="col-12">
+          {% if modification %}
+            <h2 class=page-header>Modification Categorie</h2>
+          {% else %}
+            <h2 class=page-header>Nouvel Categorie</h2>
+          {% endif %}
+              <div class="form-control mt-3">
+              {{ form_start(form)}}
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.parent, {'attr': {'class': 'form-control', 'placeholder' : 'Categorie Parente', 'aria-label' : 'Categorie Parente'}}) }}
+                  </div>
+                  <div class="col">
+                    {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder' : 'Nom', 'aria-label' : 'Nom'}}) }}
+                  </div>
+                </div>
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.slug, {'attr': {'class': 'form-control', 'placeholder' : 'Slug', 'aria-label' : 'Slug'}}) }}
+                  </div>
+                </div>
+                <div class="m-3 row g-3">
+                  <div class="col">
+                    {{ form_widget(form.categoryOrder, {'attr': {'class': 'form-control', 'placeholder' : 'Position', 'aria-label' : 'Position'}}) }}
+                  </div>
+                </div>
+                <div class="text-end">
+                  <button type="submit" class="btn btn-primary">Enregistrer</button>
+                </div>
+              {{ form_end(form) }}
+              </div>
+        </div>
+    </div>
+  </div>
+{% endblock %}
