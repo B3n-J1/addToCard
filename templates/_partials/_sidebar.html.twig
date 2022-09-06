@@ -24,6 +24,10 @@
                 <a href="{{ path('admin_categories_index')}}" class="nav-link px-0 ">
                   <span class="d-none d-sm-inline ">Categories</span></a>
               </li>
+              <li>
+                <a href="{{ path('admin_products_index')}}" class="nav-link px-0 ">
+                  <span class="d-none d-sm-inline ">Produits</span></a>
+              </li>
             </ul>
           </li>
         {% endif %}
@@ -95,3 +99,5 @@
     </div>
   </div>
 </div>
+
+{% block javascripts %}{% endblock %}
