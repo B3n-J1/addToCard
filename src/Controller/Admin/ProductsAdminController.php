@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Images;
 use App\Entity\Products;
 use App\Form\ProductsType;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,16 +27,16 @@ class ProductsAdminController extends AbstractController
     }
     #[Route('/new', name:'create')]
     #[Route('/{slug}', name:"edit", methods:['GET','POST'])]
-      public function createAndEditAction(Products $product = null, Request $request, EntityManagerInterface $manager) 
+      public function createAndEditAction(Products $product = null,Images $images = null, Request $request, EntityManagerInterface $manager) 
       {
         if(!$product){
           $product = new Products();
         }
+        $images = $product->getImages();
         $form = $this->createForm(ProductsType::class, $product);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
           $modif = $product->getId() !== null;
-          
           $manager->persist($product);
           $this->addFlash("success", ($modif) ? "La modification a été effectuée" : "L'ajout a été effectuée");
           $manager->flush();
@@ -45,6 +46,7 @@ class ProductsAdminController extends AbstractController
 
         return $this->render('admin/products/edit.html.twig', [
           'product' => $product,
+          'images' => $images,
           'form' => $form->createView(),
           'modification' => $product->getId() !== null
         ]);

@@ -44,6 +44,16 @@
                     {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder' : 'Description', 'aria-label' : 'Description'}}) }}
                   </div>
                 </div>
+                <div class="m-3 row g-3">
+                {% for image in images %}
+                  <div class="col-2">
+                        <img class="w-25" src="{{ asset('assets/uploads/') ~ image.name }}" alt="...">
+                      <div >
+                        <h6 class="font-weight-light" >{{ image.name}}</h6>
+                      </div>
+                  </div>
+                {% endfor %}
+                </div>
                 
                 
                 <div class="text-end">
