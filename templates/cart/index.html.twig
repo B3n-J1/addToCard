@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3">
+        <h1>Votre panier</h1>
+    </section>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in cartData %}
+                <tr>
+                    <td>{{ element.product.name}}</td>
+                    <td >{{ element.product.price }} €</td>
+                    <td>{{ element.quantity }}</td>
+                    <td >{{ element.quantity * (element.product.price / 100) }} €</td>
+                    <td>
+                        <a href="{{path("cart_add", {id: element.product.id})}}" class="btn btn-success">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        <a href="{{path("cart_remove", {id: element.product.id})}}" class="btn btn-warning">
+                            <i class="bi bi-cart-dash"></i>
+                        </a>
+                        <a href="{{path("cart_delete", {id: element.product.id})}}" class="btn btn-danger">
+                            <i class="bi bi-cart-x"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5" class="text-center">Votre panier est vide</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td >{{ total / 100 }} €</td>
+                <td>
+                    <a href="#" class="btn btn-danger">
+                        <i class="bi bi-cart-x"></i>
+                    </a>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    
+{% endblock %}
+
+{# {{path("cart_delete_all")}} #}

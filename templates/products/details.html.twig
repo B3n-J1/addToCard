@@ -38,10 +38,12 @@
                     <p>{{ product.description }}</p>
                     <p>Catégorie : {{ product.categories.name }}</p>
                     <p>Prix : {{ product.price / 100 }} €</p>
-                    {% if product.stock > 0 %}
-                        <a href="#" class="btn btn-success">Ajouter au panier</a>
-                    {% else %}
+                    {% if product.stock > 0 and app.user %}
+                        <a id="link_add" href="{{path("products_add", {id: product.id, slug: product.slug})}}" class="btn btn-success">Ajouter au panier</a>
+                    {% elseif app.user %}
                         <p class="text-danger">Temporairement en rupture de stock</p>
+                    {% else %}
+                        <p>Vous devez être connecté pour pouvoir commander</p>
                     {% endif %}
             </div>
         </section>
