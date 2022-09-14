@@ -91,7 +91,7 @@ class CartController extends AbstractController
         return $this->redirectToRoute("cart_index");
     }
 
-    #[Route('/delete', name: 'delete')]
+    #[Route('/delete', name: 'delete_all')]
     public function deleteAll(SessionInterface $session)
     {
         $session->remove("cart");

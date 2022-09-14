@@ -21,7 +21,7 @@
             {% for element in cartData %}
                 <tr>
                     <td>{{ element.product.name}}</td>
-                    <td >{{ element.product.price }} €</td>
+                    <td >{{ element.product.price /100 }} €</td>
                     <td>{{ element.quantity }}</td>
                     <td >{{ element.quantity * (element.product.price / 100) }} €</td>
                     <td>
@@ -47,8 +47,11 @@
                 <td colspan="3">Total</td>
                 <td >{{ total / 100 }} €</td>
                 <td>
-                    <a href="#" class="btn btn-danger">
-                        <i class="bi bi-cart-x"></i>
+                    <a href="{{path("cart_delete_all")}}" class="btn btn-warning text-white">
+                        Vider le panier              
+                    </a>
+                    <a href="{{path("orders_index")}}" class="btn btn-primary text-white">
+                        Passer la commande              
                     </a>
                 </td>
             </tr>
