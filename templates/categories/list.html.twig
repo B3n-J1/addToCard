@@ -8,11 +8,11 @@
                 <h1 class="display-4 font-weight-normal">#{{category.name}}</h1>
                 </div>
             </div>
-            <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+            <div class="row my-md-3 pl-md-3">
                 {% set status = false %}
                 {% for subcategory in subcategories %}
                     {% if status == false %}
-                    <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+                    <div class="bg-dark col-sm-12 col-md-4 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
                         <div class="my-3 py-3">
                         <h2 class="display-5">{{subcategory.name}}</h2>
                         </div>
@@ -22,7 +22,7 @@
                     </div>
                     {% set status = true %}
                     {% elseif status == true %}
-                    <div class="bg-light w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                    <div class="bg-light col-sm-12 col-md-4 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
                         <div class="my-3 py-3">
                         <h2 class="display-5">{{subcategory.name}}</h2>
                         </div>

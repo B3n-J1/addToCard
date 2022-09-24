@@ -8,12 +8,12 @@
       <a class="btn btn-outline-secondary" href="#">Coming soon</a>
     </div>
   </div> 
-  <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  <div class="row my-md-3 pl-md-3">
         {% set status = false %}
         {% for category in categories %}
           {% if category.parent == null %}
             {% if status == false %}
-              <div class="bg-dark w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+              <div class="bg-dark col-sm-12 col-md-4 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
                 <div class="my-3 py-3">
                   <h2 class="display-5">{{category.name}}</h2>
                 </div>
@@ -23,7 +23,7 @@
               </div>
               {% set status = true %}
             {% elseif status == true %}
-              <div class="bg-light w-100 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+              <div class="bg-light col-sm-12 col-md-4 mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
                 <div class="my-3 py-3">
                   <h2 class="display-5">{{category.name}}</h2>
                 </div>
@@ -36,33 +36,4 @@
           {% endif %}
         {% endfor %}
     </div>
-    
-  {# {% for category in categories %}
-    {% if category.parent == null %} #}
-      {#<div class="col-6 text-center px-4 my-2">
-          <div class="card" style="width: -moz-available ;">
-          <img src="{{ asset('assets/images/') ~ category.slug ~'.jpg'}}" style="height:10vh" class="card-img"  alt="Categories"/>
-          <div class="position-absolute " style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-          <a href="{{ path('categories_list', {slug: category.slug})}}" class="text-white" style="font-size: 1rem;font-family: Georgia, serif;  text-decoration: none">
-            {{ category.name }}</a></div>
-          </div>
-        </div>
-          <div class="col-4 h-25 text-center px-4 my-4">
-                <h5 class="card-title">{{category.name}}</h5>
-        </div> #}
-        {# <div class="col-12 text-center my-2 card bg-dark text-white text-uppercase">
-          <h2 class="card-img-overlay" style="font-family: Optima; font-weight: bold; font-size: 8vw; ">#{{ category.name }}</h2> 
-        </div> #}
-        
-      {# <div class="col-2 text-center px-4 my-2">
-          <div class="card" style="width: -moz-available ;">
-          <img src="{{ asset('assets/images/') ~ category.slug ~'.jpg'}}" class="card-img"  alt="Categories"/>
-          <div class="position-absolute " style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
-          <a href="{{ path('categories_list', {slug: category.slug})}}" class="text-white" style="font-size: 1rem;font-family: Georgia, serif;  text-decoration: none">
-            {{ category.name }}</a></div>
-          </div>
-        </div> #}
-          
-      {# {% endif %}
-    {% endfor %} #}
 {% endblock %}
