@@ -8,9 +8,9 @@
 
         {# StyleSheets Files#}
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
+         <link rel="stylesheet" href="{{ asset('assets/css/styles.scss')}}">
         {% block stylesheets %}
         {% endblock %}
-         <link rel="stylesheet" href="{{ asset('assets/css/styles.scss')}}">
         
 
         {# JS Files#}
@@ -23,7 +23,7 @@
         {{ include('_partials/_nav.html.twig') }}
       </header>
 
-      <main class="container-fluid px-0">
+      
         
         {% if app.user and app.user.isVerified == false %}
           <div class="col-6 mx-auto mt-1 alert alert-warning alert-dismissible" role="alert">
@@ -37,7 +37,7 @@
         {% block body %}
           {{ include('_partials/_flash.html.twig') }}
         {% endblock %}
-      </main>
+      
       <footer>
         {{ include('_partials/_footer.html.twig') }}
       </footer>
