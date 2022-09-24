@@ -1,23 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-  <section class="row justify-content-center">
-    {% for category in categories %}
-      {% if category.parent == null %}
-        <div class="col-12 text-center my-2 ">
-          <h2>{{ category.name }}</h2> 
-        </div>
-      {% else %}
-        <div class="col-2 text-center">
-          <div class="card h-100" style="width: 16rem;">
-            <img src="{{ asset('assets/images/defaultCard.jpg')}}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">{{ category.name }}</h5>
-              <a href="{{ path('categories_list', {slug: category.slug})}}" class="btn btn-primary">Voir les produits</a>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-  </section>
+{% block body %}    
+  <div class="card px-0" style="border: none;">  
+      <div class="d-flex flex-row justify-content-center">
+        <h1>Categories Principales</h1>
+      </div>
+        <section class="row justify-content-center mt-2">
+          {% for category in categories %}
+            {% if category.parent == null %}
+              <div class="col-6 text-center px-4 my-2">
+                  <div class="card" style="width: -moz-available ;">
+                  <img src="{{ asset('assets/images/') ~ category.slug ~'.jpg'}}" style="height:10vh" class="card-img"  alt="Categories"/>
+                  <div class="position-absolute " style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                  <a href="{{ path('categories_list', {slug: category.slug})}}" class="text-white" style="font-size: 1rem;font-family: Georgia, serif;  text-decoration: none">
+                    {{ category.name }}</a></div>
+                  </div>
+                </div>
+                {# <div class="col-4 h-25 text-center px-4 my-4">
+                        <h5 class="card-title">{{category.name}}</h5>
+                </div> #}
+                {# <div class="col-12 text-center my-2 card bg-dark text-white text-uppercase">
+                  <h2 class="card-img-overlay" style="font-family: Optima; font-weight: bold; font-size: 8vw; ">#{{ category.name }}</h2> 
+                </div> #}
+                
+              {# <div class="col-2 text-center px-4 my-2">
+                  <div class="card" style="width: -moz-available ;">
+                  <img src="{{ asset('assets/images/') ~ category.slug ~'.jpg'}}" class="card-img"  alt="Categories"/>
+                  <div class="position-absolute " style="top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                  <a href="{{ path('categories_list', {slug: category.slug})}}" class="text-white" style="font-size: 1rem;font-family: Georgia, serif;  text-decoration: none">
+                    {{ category.name }}</a></div>
+                  </div>
+                </div> #}
+              {% endif %}
+            {% endfor %}
+        </section>
+    </div>
 {% endblock %}

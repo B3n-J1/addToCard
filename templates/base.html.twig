@@ -8,8 +8,10 @@
 
         {# StyleSheets Files#}
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css')}}">
-        {% block stylesheets %}{% endblock %}
-        <link rel="stylesheet" href="{{ asset('assets/css/styles.css')}}">
+        {% block stylesheets %}
+        {% endblock %}
+         <link rel="stylesheet" href="{{ asset('assets/css/styles.scss')}}">
+        
 
         {# JS Files#}
         <script src="{{asset('assets/js/bootstrap.bundle.min.js')}}" defer></script>
@@ -21,7 +23,8 @@
         {{ include('_partials/_nav.html.twig') }}
       </header>
 
-      <main class="container-fluid">
+      <main class="container-fluid px-0">
+        
         {% if app.user and app.user.isVerified == false %}
           <div class="col-6 mx-auto mt-1 alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -35,7 +38,7 @@
           {{ include('_partials/_flash.html.twig') }}
         {% endblock %}
       </main>
-      <footer class="fixed-bottom">
+      <footer>
         {{ include('_partials/_footer.html.twig') }}
       </footer>
     </body>
