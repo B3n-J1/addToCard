@@ -3,31 +3,52 @@
 {% block title %}Inscription{% endblock %}
 
 {% block body %}
-  <h1>Inscription</h1>
-    <section class="container mt-3">
-        <div class="row">
-        <div class="col">
-            {{ form_start(registrationForm) }}
-            <fieldset class="mb-3">
-                <legend>Mon Identité</legend>
-                {{ form_row(registrationForm.lastname) }}
-                {{ form_row(registrationForm.firstname) }}
-                {{ form_row(registrationForm.email) }}
-            </fieldset>
-            <fieldset class="mb-3">
-                <legend>Mes Coordonées</legend>
-                {{ form_row(registrationForm.address) }}
-                {{ form_row(registrationForm.zipcode) }}
-                {{ form_row(registrationForm.city) }}
-            </fieldset>
-                {{ form_row(registrationForm.plainPassword, {
-                    label: 'Password'
-                }) }}
-            {{ form_row(registrationForm.RGPDConsent) }}
-
-            <button type="submit" class="btn btn-primary btn-lg my-3">M'inscrire</button>
-            {{ form_end(registrationForm) }}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-white" style="background-image: url('/assets/images/details.jpg');">
+        <div class="col-md-5 p-lg-5 my-5" >
+        <h1 class="display-3 fw-bold">#Register</h1>
         </div>
+    </div>
+    <section class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-sm-12 px-2">
+                <div class="card border-dark ">
+                    <div class="mx-2 my-2">
+                        {{ form_start(registrationForm) }}
+                        <div class="row">
+                            <div class="col-md-5 col-sm-12">
+                                <fieldset class="mb-3 fw-bold text-center">
+                                    <legend class="text-success ">Mon Identité</legend>
+                                    {{ form_row(registrationForm.lastname) }}
+                                    {{ form_row(registrationForm.firstname) }}
+                                    {{ form_row(registrationForm.email) }}
+                                    {{ form_row(registrationForm.plainPassword, {
+                                        label: 'Password',
+                                    }) }}
+                                </fieldset>
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <fieldset class="mb-3 fw-bold text-center">
+                                    <legend class="text-success">Mes Coordonées</legend>
+                                    {{ form_row(registrationForm.address) }}
+                                    {{ form_row(registrationForm.zipcode) }}
+                                    {{ form_row(registrationForm.city) }}
+                                </fieldset>
+                                {{ form_row(registrationForm.RGPDConsent) }}
+                            </div>
+                            <div class="col-12 text-center ">
+                                <button type="submit" class="btn btn-secondary btn-lg fs-4 my-3">M'inscrire</button>
+                            </div>
+                            <div class="col-12 text-end mx-1 my-3">
+                                <p>Déja inscrit ? Cliquez 
+                                    <a class="fw-semibold my-1" href="{{ path('app_login') }}" style="text-decoration: none;">ici</a>
+                                    pour vous connecter
+                                </p>
+                            </div>
+                        </div>
+                    {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 {% endblock %}

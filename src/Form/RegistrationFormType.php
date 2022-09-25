@@ -31,7 +31,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['class' => 'mt-3'],
                 'constraints' => [
                     new IsTrue([
-                        'message' => "En cochant cet case, j'accepte ....  .",
+                        'message' => "En cochant cet case, j'accepte les termes générales d'utilisations du site ...  .",
                     ]),
                 ],
             ])
