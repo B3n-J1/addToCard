@@ -5,54 +5,54 @@
 {% endblock %}
 
 {% block body %}
-        <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-white" style="background-image: url('/assets/images/details.jpg');">
-            <div class="col-md-5 p-lg-5 my-5" >
-            <h1 class="display-3 fw-bold">Details de #{{product.name}}</h1>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-white" style="background-image: url('/assets/images/details.jpg');">
+        <div class="col-md-5 p-lg-5 my-5" >
+        <h1 class="display-3 fw-bold">Details de #{{product.name}}</h1>
+        </div>
+    </div>
+    <section class="row mx-auto p-5 ">
+        <div class="col-md-6 col-sm-12 align-self-center max-h-25">
+            <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
+            {% if product.images|length > 0 %}
+                <div class="carousel-indicators ">
+                    {% for iteration in 1..product.images|length %}
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}" {{ (loop.first ) ?'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
+                    {% endfor %}
+                </div>
+                <div class="carousel-inner ">
+                    {% for image in product.images %}
+                        <div class="carousel-item  {{ (loop.first ) ? 'active' : '' }}">
+                            <img src="{{ asset('assets/uploads/products/') ~ image.name }}" class="d-block w-100" alt="{{ product.name }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon primary" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            {% else %}
+            <h5 class="text-warning">Aucune image disponible pour ce produit actuellement</h5>
+            {% endif %}
             </div>
         </div>
-        <section class="row p-5 ">
-            <div class="col-md-6 col-sm-12 align-self-center max-h-25">
-                <div id="carouselExampleIndicators" class="carousel slide " data-bs-ride="carousel">
-                {% if product.images|length > 0 %}
-                    <div class="carousel-indicators ">
-                        {% for iteration in 1..product.images|length %}
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}" {{ (loop.first ) ?'class="active" aria-current="true"' : '' }} aria-label="Slide {{ iteration }}"></button>
-                        {% endfor %}
-                    </div>
-                    <div class="carousel-inner ">
-                        {% for image in product.images %}
-                            <div class="carousel-item  {{ (loop.first ) ? 'active' : '' }}">
-                                <img src="{{ asset('assets/uploads/products/') ~ image.name }}" class="d-block w-100" alt="{{ product.name }}">
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon primary" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                {% else %}
-                <h5 class="text-warning">Aucune image disponible pour ce produit actuellement</h5>
-                {% endif %}
+        <div class="col-md-6 col-sm-12 mx-auto pt-md-5" >
+        <h3 class="py-1 fw-bold">{{ product.name }}</h3>
+                <h4 class="py-2">Catégorie : <a href="{{app.request.headers.get('referer')}}" style="text-decoration: none;">{{ product.categories.name }}</a><h4>
+                <h4 class="py-2">Price : <b class="text-danger fw-bold">{{ product.price / 100 }} €</b></h4>
+                <h5 class="py-2">Description : {{ product.description }}</h5>
+                {% if product.stock > 0 and app.user %}
+                <div class="d-flex justify-content-center">
+                    <a href="{{path("products_add", {id: product.id, slug: product.slug})}}" class="mt-md-4 mt-sm-3 btn btn-success btn-lg">Ajouter au panier</a>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-12 mx-auto pt-md-5" >
-            <h3 class="py-1 fw-bold">{{ product.name }}</h3>
-                    <h4 class="py-2">Catégorie : <a href="{{app.request.headers.get('referer')}}" style="text-decoration: none;">{{ product.categories.name }}</a><h4>
-                    <h4 class="py-2">Price : <b class="text-danger fw-bold">{{ product.price / 100 }} €</b></h4>
-                    <h5 class="py-2">Description : {{ product.description }}</h5>
-                    {% if product.stock > 0 and app.user %}
-                    <div class="d-flex justify-content-center">
-                        <a href="{{path("products_add", {id: product.id, slug: product.slug})}}" class="mt-md-4 mt-sm-3 btn btn-success btn-lg">Ajouter au panier</a>
-                    </div>
-                    {% elseif app.user %}
-                        <p class="text-danger">Temporairement en rupture de stock</p>
-                    {% else %}
-                        <p class="py-2 fs-4 text-warning fw-bold">Vous devez être connecté/inscrit pour pouvoir commander</p>
-                    {% endif %}
-            </div>
-        </section>
+                {% elseif app.user %}
+                    <p class="text-danger">Temporairement en rupture de stock</p>
+                {% else %}
+                    <p class="py-2 fs-4 text-warning fw-bold">Vous devez être connecté/inscrit pour pouvoir commander</p>
+                {% endif %}
+        </div>
+    </section>
 {% endblock %}

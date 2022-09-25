@@ -7,94 +7,86 @@
         <div class="col-md-5 p-lg-5 my-5" >
             <h1 class="display-4 fw-bold text-white">#Panier</h1>
         </div>
-    </div> 
-    {% for element in cartData %}
-        <div class ="row mx-auto">
-            <div class="col-8">
-                <div class="d-flex align-items-center">
-                    <a href="{{path("cart_delete", {id: element.product.id})}}" style="text-decoration: none;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" width="30px" height="30px">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </a>
-                    <div class="ms-md-5 ms-sm-2">
-                        <img height="100px" src="{{ asset('assets/images/defaultCard.jpg')}}" alt="">
+    </div>
+    <div class="row my-md-3 mx-auto">
+        <div class="col-md-8 col-sm-10">
+            {% if cartData|length > 0 %}
+                {% for element in cartData %}
+                    <div class ="row mt-2">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="d-flex align-items-center my-3">
+                                <a href="{{path("cart_delete", {id: element.product.id})}}" style="text-decoration: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="red" width="30px" height="30px">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </a>
+                                <div class="ms-md-5 ms-sm-2">
+                                    <img height="80px" src="{{ asset('assets/images/defaultCard.jpg')}}" alt="">
+                                </div>
+                                <div class="ms-md-5 ms-sm-2">
+                                    <p class="fs-3 fw-bold">{{ element.product.name}}</p>
+                                </div>
+                                <div class="border border-warning ms-md-5 ms-sm-2" style="height: 50px; width:120px;">
+                                    <div class="d-flex justify-content-around align-items-center">
+                                        <a href="{{path("cart_remove", {id: element.product.id})}}" style="text-decoration: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="40px" height="40px" >
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                            </svg>
+                                        </a>
+                                        <p class="fs-3 fw-bold mt-1">{{ element.quantity }} </p>
+                                        <a href="{{path("cart_add", {id: element.product.id})}}" style="text-decoration: none;">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="40px" height="40px">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="ms-md-5 ms-sm-2 fs-4 fw-bold mt-1 text-secondary">
+                                    {{ element.quantity * (element.product.price / 100) }} €
+                                </p>
+                            </div> 
+                        </div> 
                     </div>
-                    <div class="ms-md-5 ms-sm-2">
-                        <p class="fs-3 fw-bold">{{ element.product.name}}</p>
-                    </div>
-                    <div class="border border-warning ms-md-5 ms-sm-2" style="height: 60px; width:150px;">
-                        <div class="d-flex justify-content-around align-items-center">
-                            <a href="{{path("cart_remove", {id: element.product.id})}}" style="text-decoration: none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="50px" height="50px" >
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                </svg>
-                            </a>
-                            <p class="fs-3 fw-bold mt-1">{{ element.quantity }} </p>
-                            <a href="{{path("cart_add", {id: element.product.id})}}" style="text-decoration: none;">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" width="50px" height="50px">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                    <p class="ms-md-5 ms-sm-2 fs-3 fw-bold mt-1 text-secondary">
-                        {{ element.quantity * (element.product.price / 100) }} €
-                    </p>
-                </div> 
-            </div> 
-
-    {# <table class="table">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Total</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody> #}
-                {# <tr>
-                    <td>{{ element.product.name}}</td>
-                    <td >{{ element.product.price /100 }} €</td>
-                    <td>{{ element.quantity }}</td>
-                    <td >{{ element.quantity * (element.product.price / 100) }} €</td>
-                    <td>
-                        <a href="{{path("cart_add", {id: element.product.id})}}" class="btn btn-success">
-                            <i class="bi bi-cart-plus"></i>
-                        </a>
-                        <a href="{{path("cart_remove", {id: element.product.id})}}" class="btn btn-warning">
-                            <i class="bi bi-cart-dash"></i>
-                        </a>
-                        <a href="{{path("cart_delete", {id: element.product.id})}}" class="btn btn-danger">
-                            <i class="bi bi-cart-x"></i>
-                        </a>
-                    </td>
-                </tr> #}
+                {% endfor %}
             {% else %}
-                <tr>
-                    <td colspan="5" class="text-center">Votre panier est vide</td>
-                </tr>
-  </div>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="3">Total</td>
-                <td >{{ total / 100 }} €</td>
-                <td>
-                    <a href="{{path("cart_delete_all")}}" class="btn btn-warning text-white">
-                        Vider le panier              
-                    </a>
-                    <a href="{{path("orders_index")}}" class="btn btn-primary text-white">
-                        Passer la commande              
-                    </a>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
+                <div class ="row mt-2">
+                    <div class="col-md-8 col-sm-12 text-center ">
+                        <h5 class="text-warning fw-semibold fs-5">Votre panier est vide</h5>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4 col-sm-10 ">
+            <div class="card bg-dark text-white my-3">
+                <div class="card-header text-center fs-4 fw-semibold">
+                    Panier
+                </div>
+                <div class="card-body">
+                    <div class="border-bottom py-2 fs-5 fw-semibold">
+                        <h5 class="card-title">Prix HT</h5>
+                        <p class="card-text text-end text-light">{{ total / 100 }} €</p>
+                    </div>
+                    <div class="border-bottom py-2 fs-5 fw-semibold">
+                        <h5 class="card-title">Taxes</h5>
+                        <p class="card-text text-end text-light">{{ total * 0.2 / 100 }} €</p>
+                    </div>
+                    <div class="border-bottom py-2 fs-5 fw-semibold">
+                        <h5 class="card-title">Prix TTC</h5>
+                        <p class="card-text text-end text-light">{{ (total + (total * 0.2)) / 100 }} €</p>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="d-flex justify-content-around">
+                        <a href="{{path("cart_delete_all")}}" class="btn btn-warning text-white">
+                            Vider le panier              
+                        </a>
+                        <a href="{{path("orders_index")}}" class="btn btn-primary text-white">
+                            Passer la commande              
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 {% endblock %}
-
-{# {{path("cart_delete_all")}} #}

@@ -9,11 +9,6 @@
     </div>
   </div> 
   <section class="mx-2 row justify-content-center">
-    {% for message in app.flashes("success") %}
-      <div class="alert alert-success">
-        {{message}}
-      </div>  
-    {% endfor %}
     <div class="row justify-content-end">
       <a href="{{ path('admin_users_create')}}" class="my-3 col-2 btn btn-success">Ajouter</a>
     </div>
