@@ -7,72 +7,75 @@
 
 
 {% block body %}
-
-	<div class="container">
-    <div class="mx-2 row justify-content-center">
-        <div class="col-12">
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" style="background-image: url('/assets/images/main.jpg');">
+    <div class="col-md-5 p-lg-5 mx-auto my-5" >
           {% if modification %}
-            <h2 class=page-header>Modification d'un Produit</h2>
+            <h1 class="display-4 font-weight-normal">Modify Product</h1>
           {% else %}
-            <h2 class=page-header>Nouveau Produit</h2>
+            <h1 class="display-4 font-weight-normal">New Product</h1>
           {% endif %}
-              <div class="form-control mt-3">
-              {{ form_start(form)}}
-                <div class="m-3 row g-3">
-                  <div class="col">
-                    {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder' : 'Nom', 'aria-label' : 'Nom'}}) }}
-                  </div>
-                  <div class="col">
-                    {{ form_widget(form.categories, {'attr': {'class': 'form-control', 'placeholder' : 'Categorie Parente', 'aria-label' : 'Categorie Parente'}}) }}
-                  </div>
-                </div>
-                <div class="m-3 row g-3">
-                  <div class="col-2">
-                    {{ form_widget(form.price, {'attr': {'class': 'form-control', 'placeholder' : 'Prix', 'aria-label' : 'Prix'}}) }}
-                  </div>
-                  <div class="col-2">
-                    {{ form_widget(form.stock, {'attr': {'class': 'form-control', 'placeholder' : 'Stock', 'aria-label' : 'Stock'}}) }}
-                  </div>
-                </div>
-                <div class="m-3 row g-3">
-                  <div class="col-3">
-                    {{ form_widget(form.slug, {'attr': {'class': 'form-control', 'placeholder' : 'Slug', 'aria-label' : 'Slug'}}) }}
-                  </div>
-                </div>
-                <div class="m-3 row g-3">
-                  <div class="col">
-                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder' : 'Description', 'aria-label' : 'Description'}}) }}
-                  </div>
-                </div>
-                <div class="m-3 row g-3">
-                  <div class="col-3">
-                    {{ form_widget(form.images)}}
-                  </div>
-                </div>
-                {% if modification %}
-                <div class="m-3 row g-3">
-                  {% for i in images %}
-                      <div class="col-3">
-                            <img class="w-25" src="{{ asset('assets/uploads/products/') ~ i.name }}" alt="{{ product.slug }}">
-                              <a href="{{path('admin_products_deleteImage', {'id': i.id})}}" data-delete data-token="{{ csrf_token('delete' ~ i.id)}}" id="deleteModalButton" >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-x" viewBox="0 0 16 16">
-                                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                </svg>
-                              </a>
-                          <div >
-                            <h6 class="font-weight-light" >{{i.name}}</h6>
-                          </div>
-                      </div>
-                  {% endfor %}            
-                </div>
-                {% endif %}
-                
-                <div class="text-end">
-                  <button type="submit" class="btn btn-primary">Enregistrer</button>
-                </div>
-              {{ form_end(form) }}
-              </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="border-white form-control my-3">
+      {{ form_start(form)}}
+        <div class="m-3 row g-3">
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Nom du Produit</label>
+            {{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder' : 'Nom'}}) }}
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Catégorie du Produit</label>
+            {{ form_widget(form.categories, {'attr': {'class': 'form-select', 'placeholder' : 'Categorie'}}) }}
+          </div>
         </div>
+        <div class="m-3 row g-3">
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Prix du Produit (en centimes)</label>
+            {{ form_widget(form.price, {'attr': {'class': 'form-control', 'placeholder' : 'Prix'}}) }}
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Nombres en stocks</label>
+            {{ form_widget(form.stock, {'attr': {'class': 'form-control', 'placeholder' : 'Stock'}}) }}
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputSlug">Slug du Produit</label>
+            {{ form_widget(form.slug, {'attr': {'class': 'form-control', 'placeholder' : 'Slug'}}) }}
+          </div>
+        </div>
+        <div class="m-3 row g-3">
+          <div class="col-md-8 col-sm-12">
+            <label class=" fs-5 fw-semibold my-3" for="inputDescription">Description du Produit</label>
+            {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder' : 'Description'}}) }}
+          </div>
+        </div>
+        <div class="m-3 row g-3">
+          <div class="col-md-6 col-sm-12">
+            <label class=" fs-5 fw-semibold my-3" for="inputImage">Ajouter une image</label>
+            {{ form_widget(form.images)}}
+          </div>
+        </div>
+        {% if modification %}
+          <div class="m-3 row g-3">
+            {% for i in images %}
+                <div class="col-md-3 col-sm-6">
+                      <img class="w-25" src="{{ asset('assets/uploads/products/') ~ i.name }}" alt="{{ product.slug }}">
+                        <a href="{{path('admin_products_deleteImage', {'id': i.id})}}" data-delete data-token="{{ csrf_token('delete' ~ i.id)}}" id="deleteModalButton" >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" class="bi bi-x" viewBox="0 0 16 16">
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                          </svg>
+                        </a>
+                    <div >
+                      <h6 class="font-weight-light" >{{i.name}}</h6>
+                    </div>
+                </div>
+            {% endfor %}            
+          </div>
+        {% endif %}    
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      {{ form_end(form) }}
     </div>
   </div>
 {% endblock %}
