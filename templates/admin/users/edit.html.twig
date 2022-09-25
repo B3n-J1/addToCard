@@ -7,58 +7,64 @@
 
 
 {% block body %}
-
-	<div class="container">
-    <div class="mx-2 row justify-content-center">
-        <div class="col-12">
+  <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center" style="background-image: url('/assets/images/main.jpg');">
+    <div class="col-md-5 p-lg-5 mx-auto my-5" >
           {% if modification %}
-            <h2 class=page-header>Modification Utilisateur</h2>
+            <h1 class="display-4 font-weight-normal">Modify User</h1>
           {% else %}
-            <h2 class=page-header>Nouvel Utilisateur</h2>
+            <h1 class="display-4 font-weight-normal">Modify User</h1>
           {% endif %}
-              <div class="form-control mt-3">
-              {{ form_start(form)}}
-                <div class="m-3 row g-3">
-                  <div class="col">
-                    {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder' : 'Nom', 'aria-label' : 'Nom'}}) }}
-                  </div>
-                  <div class="col">
-                    {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder' : 'Prénom', 'aria-label' : 'Prénom'}}) }}
-                  </div>
-                </div>
-                {% if modification %}                    
-                    {{ form_widget(form.password, {'attr': {'class': 'form-control visually-hidden-focusable', 'placeholder' : 'Mot de passe', 'aria-label' : 'Mot de passe'}}) }}
-                {% else %}  
-                  <div class="m-3 row g-3">
-                    <div class="col">
-                      {{ form_widget(form.password, {'type': 'password' ,'attr': {'class': 'form-control', 'placeholder' : 'Mot de passe', 'aria-label' : 'Mot de passe'}}) }}
-                    </div>
-                  </div>
-                {% endif %}
-                <div class="m-3 row g-3">
-                  <div class="col">
-                    {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder' : 'Email', 'aria-label' : 'Email'}}) }}
-                  </div>
-                </div>
-                <div class="m-3 row g-3">
-                  <div class="col">
-                    {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder' : 'Adresse', 'aria-label' : 'Adresse'}}) }}
-                  </div>
-                </div>
-                <div class="m-3 row g-3">
-                  <div class="col">
-                    {{ form_widget(form.zipcode, {'attr': {'class': 'form-control', 'placeholder' : 'Code Postale', 'aria-label' : 'Code Postale'}}) }}
-                  </div>
-                  <div class="col">
-                    {{ form_widget(form.city, {'attr': {'class': 'form-control', 'placeholder' : 'Ville', 'aria-label' : 'Ville'}}) }}
-                  </div>
-                </div>
-                <div class="text-end">
-                  <button type="submit" class="btn btn-primary">Enregistrer</button>
-                </div>
-              {{ form_end(form) }}
-              </div>
+    </div>
+  </div>
+  <div class="container">       
+    <div class="border-white form-control my-3">
+      {{ form_start(form)}}
+        <div class="m-3 row g-3">
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Nom</label>
+            {{ form_widget(form.lastname, {'attr': {'class': 'form-control', 'placeholder' : 'Nom'}}) }}
+          </div>
+          <div class="col-md-3 col-sm-6">
+          <label class=" fs-5 fw-semibold my-3" for="inputEmail">Prénom</label>
+            {{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder' : 'Prénom'}}) }}
+          </div>
         </div>
+        {% if modification %}                    
+            {{ form_widget(form.password, {'attr': {'class': 'form-control visually-hidden-focusable', 'placeholder' : 'Mot de passe'}}) }}
+        {% else %}  
+          <div class="m-3 row g-3">
+            <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Mot de passe</label>
+              {{ form_widget(form.password, {'type': 'password' ,'attr': {'class': 'form-control', 'placeholder' : 'Mot de passe'}}) }}
+            </div>
+          </div>
+        {% endif %}
+        <div class="m-3 row g-3">
+          <div class="col-md-5 col-sm-10">
+          <label class=" fs-5 fw-semibold my-3" for="inputEmail">Email</label>
+            {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder' : 'Email'}}) }}
+          </div>
+        </div>
+        <div class="m-3 row g-3">
+          <div class="col">
+          <label class=" fs-5 fw-semibold my-3" for="inputEmail">Adresse</label>
+            {{ form_widget(form.address, {'attr': {'class': 'form-control', 'placeholder' : 'Adresse'}}) }}
+          </div>
+        </div>
+        <div class="m-3 row g-3">
+          <div class="col-md-3 col-sm-6">
+            <label class=" fs-5 fw-semibold my-3" for="inputEmail">Code Postale</label>
+            {{ form_widget(form.zipcode, {'attr': {'class': 'form-control', 'placeholder' : 'Code Postale'}}) }}
+          </div>
+          <div class="col-md-3 col-sm-6">
+          <label class=" fs-5 fw-semibold my-3" for="inputEmail">Ville</label>
+            {{ form_widget(form.city, {'attr': {'class': 'form-control', 'placeholder' : 'Ville'}}) }}
+          </div>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
+        </div>
+      {{ form_end(form) }}
     </div>
   </div>
 {% endblock %}
