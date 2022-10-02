@@ -14,9 +14,10 @@ class ProductsFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // use the factory to create a Faker\Generator instance
+        // Utilisation de factory pour créer une instance Faker\Generator
         $faker = Faker\Factory::create('fr_FR');
 
+        // Création d'une boucle For pour généré 10 produits
         for($prod = 1; $prod <= 10; $prod++){
             $product = new Products();
             $product->setName($faker->text(15));

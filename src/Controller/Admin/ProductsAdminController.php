@@ -18,35 +18,43 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('admin/products', name: 'admin_products_')]
 class ProductsAdminController extends AbstractController
 {
+    // Tableau des produits
     #[Route('/', name: 'index')]
     public function index(ProductsRepository $repositories): Response
     {
+      // Utilise la methode du ProductRepository findAll() afin de récupérer tout les produits
         $products = $repositories->findAll(); 
+
+        // Retourne la liste de produits pour le template
         return $this->render('admin/products/index.html.twig', [
             'products' => $products,
             
         ]);
         
     }
+    // Ajout/ Modification d'un produit 
     #[Route('/new', name:'create')]
     #[Route('/{slug}', name:"edit", methods:['GET','POST'])]
       public function createAndEditAction(Products $product = null,Images $images = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger) 
       {
+        // Si pas de produit correspondant nouveau produit
         if(!$product){
           $product = new Products();
         }
-        
+        // Récupere les images du produit
         $images = $product->getImages();
+        // Création du formulaire
         $form = $this->createForm(ProductsType::class, $product);
         $form->handleRequest($request);
 
+        // Une fois le formulaire soumis et valide
         if($form->isSubmitted() && $form->isValid()) {
+          // Récupération des images 
           $uploaded = $form->get('images')->getData();
             if ($uploaded) {
+              // Pour chaque images uploaded 
               foreach($uploaded as $image) {
-                # code...
                 $originalFilename = pathinfo($image->getClientOriginalName(), PATHINFO_FILENAME);
-                // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$image->guessExtension();
     
@@ -57,16 +65,15 @@ class ProductsAdminController extends AbstractController
                         $newFilename
                     );
                 } catch (FileException $e) {
-                    // ... handle exception if something happens during file upload
+                    $this->addFlash(
+                       'error',
+                       $e
+                    );
                 }
-    
-                // updates the 'brochureFilename' property to store the PDF file name
-                // instead of its contents
                 $im=new Images();
                 $im->setName($newFilename);
                 $im->setProducts($product);
                 $product->addImage($im);
-                // $manager->persist($im);
               }
           }
           $modif = $product->getId() !== null;

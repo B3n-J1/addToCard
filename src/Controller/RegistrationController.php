@@ -21,28 +21,34 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UsersAuthenticator $authenticator, EntityManagerInterface $entityManager, SendMailService $mail, JWTService $jwt): Response
     {
+        // Création d'un nouvel utilisateur et du formulaire d'inscription
         $user = new Users();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
+        // Lors de la soumission du formulaire et si les champs du formulaire est valide
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            
+            // Récupération et hashage du mot de passe de l'utilisateur  
             $user->setPassword(
             $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            // Prépare la données
             $entityManager->persist($user);
+            // Ajoute en base de données
             $entityManager->flush();
 
+            // Préparation et génération du token de sécurité
             $header = ['typ' => 'JWT', 'alg' => 'HS256'];
             $payload = ['user_id' => $user->getId()];
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-            // do anything else you need here, like send an email
-            $mail->send('no-reply@mon-site.com', $user->getEmail(), 'Activation Compte', 'register', compact('user', 'token'));
+            // Envoi de mail activation du compte
+            $mail->send('no-reply@addToCard.com', $user->getEmail(), 'Activation Compte', 'register', compact('user', 'token'));
 
+            // On authentifie l'utilisateur
             return $userAuthenticator->authenticateUser(
                 $user,
                 $authenticator,
