@@ -31,8 +31,6 @@ class ProductsController extends AbstractController
         // On récupère le panier actuel
         $cart = $session->get("cart", []);
         $id = $product->getId();
-        $slug = $product->getCategories()->getSlug();
-        $parentSlug = $product->getCategories()->getParent()->getSlug();
 
         if(!empty($cart[$id])){
             $cart[$id]++;
@@ -43,7 +41,7 @@ class ProductsController extends AbstractController
         // On sauvegarde dans la session
         $session->set("cart", $cart);
         $this->addFlash('success', 'Ce produit à bien été ajouté à votre panier !');
-        return $this->redirectToRoute("categories_sublist", ['slug'=> $slug, 'parentSlug'=>$parentSlug]);
+        return $this->redirectToRoute("products_details", ['slug'=> $product->getSlug()]);
         
     }
 }

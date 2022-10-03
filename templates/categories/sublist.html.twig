@@ -13,13 +13,14 @@
                 </div>
             <div class="row mx-auto">
             {% for product in products %}
-                <div class="col-sm-12 col-md-3 mb-3">
-                    <article class="card h-100">
+                <div class="col-sm-12 col-md-3 mb-3 mx-auto">
+                    <article class="card h-100 border-white">
                     <img src="{{ asset('assets/images/defaultCard.jpg')}}" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h2 class="card-title">{{ product.name }}</h2>
-                            <p class="card-text">{{ product.description }}</p>
-                            <a href="{{ path('products_details', {'slug' : product.slug})}}" class="btn btn-primary">Voir les détails</a>
+                        <div class="card-body text-center">
+                            <h2 class="card-title text-light fs-5 fw-bold">{{ category.name }}</h2>
+                            <h2 class="card-title  fs-3 fw-bold">{{ product.name }}</h2>
+                            <p class="card-text text-danger fw-bold fs-4 text-center">{{ product.price / 100 }} €</p>
+                            <a href="{{ path('products_details', {'slug' : product.slug})}}" class="btn btn-dark text-white fw-bold fs-4">Voir les détails</a>
                         </div>
                     </article>
                 </div>

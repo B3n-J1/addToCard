@@ -51,6 +51,6 @@ class OrdersController extends AbstractController
         }
         $cartData = [];
         $this->addFlash("success", "Votre commande à bien été éffectué !");
-        return $this->render('cart/index.html.twig',  compact("cartData", "total"));
+        return $this->redirectToRoute('app_main');
     }
 }

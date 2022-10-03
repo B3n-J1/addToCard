@@ -64,15 +64,15 @@
                 <div class="card-body">
                     <div class="border-bottom py-2 fs-5 fw-semibold">
                         <h5 class="card-title">Prix HT</h5>
-                        <p class="card-text text-end text-light">{{ total / 100 }} €</p>
+                        <p class="card-text text-end text-light">{{ (total / 100)|round(2, 'floor') }} €</p>
                     </div>
                     <div class="border-bottom py-2 fs-5 fw-semibold">
                         <h5 class="card-title">Taxes</h5>
-                        <p class="card-text text-end text-light">{{ total * 0.2 / 100 }} €</p>
+                        <p class="card-text text-end text-light">{{ (total * 0.2 / 100)|round(2, 'floor') }} €</p>
                     </div>
                     <div class="border-bottom py-2 fs-5 fw-semibold">
                         <h5 class="card-title">Prix TTC</h5>
-                        <p class="card-text text-end text-light">{{ (total + (total * 0.2)) / 100 }} €</p>
+                        <p class="card-text text-end text-light">{{ ((total + (total * 0.2)) / 100)|round(2, 'floor') }} €</p>
                     </div>
                 </div>
                 <div class="card-footer text-muted">
