@@ -4,6 +4,7 @@ namespace App\Tests\Entity;
 
 use App\Entity\Users;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Validator\ConstraintViolation;
 
 class UsersTest extends KernelTestCase
 {
@@ -21,7 +22,13 @@ class UsersTest extends KernelTestCase
         self::bootKernel();
         $container = static::getContainer();
         $errors= $container->get('validator')->validate($user);
-        $this->assertCount($number, $errors);
+        
+        $messages = [];
+        /** @var ConstraintViolation $error */
+        foreach($errors as $error) {
+            $messages[] = $error->getPropertyPath() . '=> ' . $error->getMessage();
+        }
+        $this->assertCount($number, $errors, implode(', ', $messages));
     }
 
     public function testValidNewUser(): void
